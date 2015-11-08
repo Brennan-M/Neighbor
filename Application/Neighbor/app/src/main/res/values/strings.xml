@@ -12,4 +12,5 @@
     <string name="new_password_hint">Enter Password</string>
     <string name="new_password_hint_2">Enter Password Again</string>
     <string name="register">Sign Up</string>
+    <string name="login">Sign In</string>
 </resources>

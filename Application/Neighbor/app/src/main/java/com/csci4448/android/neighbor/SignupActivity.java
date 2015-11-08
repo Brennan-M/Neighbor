@@ -99,13 +99,15 @@ public class SignupActivity extends AppCompatActivity {
         newUser.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
-                if (e != null) {
-                    Toast.makeText(getApplicationContext(), "Error: Please try again...", Toast.LENGTH_LONG).show();
-                } else {
+                if (e == null) {
                     // Route back to main activity which should then lead to our homescreen activity.
-                    Intent intent = new Intent(SignupActivity.this, HomescreenActivity.class);
+                    dialog.dismiss();
+                    Intent intent = new Intent(SignupActivity.this, MainActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
+                } else {
+                    dialog.dismiss();
+                    Toast.makeText(SignupActivity.this, "Error: Email Not Valid.", Toast.LENGTH_LONG).show();
                 }
             }
         });
