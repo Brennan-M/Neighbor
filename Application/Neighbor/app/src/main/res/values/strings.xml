@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Neighbor</string>
-
-    <string name="hello_world">Welcome To Neighbor!</string>
+    <string name="welcome">Welcome To Neighbor!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_homescreen">HomescreenActivity</string>
+    <string name="title_activity_frontscreen">FrontscreenActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_signup">SignupActivity</string>
+    <string name="title_activity_signin">SigninActivity</string>
+    <string name="new_username_hint">Enter Username</string>
+    <string name="new_email_hint">Enter Email</string>
+    <string name="new_password_hint">Enter Password</string>
+    <string name="new_password_hint_2">Enter Password Again</string>
+    <string name="register">Sign Up</string>
 </resources>
