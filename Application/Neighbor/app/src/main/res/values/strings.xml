@@ -14,4 +14,7 @@
     <string name="register">Sign Up</string>
     <string name="login">Sign In</string>
     <string name="sign_out">Sign Out</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="title_activity_edit_profile">EditProfileActivity</string>
+    <string name="search_item_hint">Search For An Item</string>
 </resources>

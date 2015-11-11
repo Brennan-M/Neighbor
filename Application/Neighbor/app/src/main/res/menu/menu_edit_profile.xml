@@ -1,9 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.csci4448.android.neighbor.HomescreenActivity">
+    tools:context="com.csci4448.android.neighbor.EditProfileActivity">
     <item android:id="@+id/sign_out" android:title="@string/sign_out"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/edit_profile" android:title="@string/edit_profile"
-        android:orderInCategory="50" app:showAsAction="never" />
 </menu>
