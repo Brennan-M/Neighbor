@@ -41,6 +41,10 @@
             android:name=".EditProfileActivity"
             android:label="@string/title_activity_edit_profile" >
         </activity>
+        <activity
+            android:name=".PostItemActivity"
+            android:label="@string/title_activity_post_item" >
+        </activity>
     </application>
 
 </manifest>

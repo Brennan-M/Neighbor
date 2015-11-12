@@ -17,4 +17,5 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="search_item_hint">Search For An Item</string>
+    <string name="title_activity_post_item">PostItemActivity</string>
 </resources>

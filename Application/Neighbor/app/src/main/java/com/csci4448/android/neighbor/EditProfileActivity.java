@@ -83,7 +83,6 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    /* Source ProgrammerGuru.com */
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
