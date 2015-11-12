@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -53,24 +52,17 @@ public class EditProfileActivity extends AppCompatActivity {
         location.setText(currentUser.getString("location"), TextView.BufferType.EDITABLE);
         userBio.setText(currentUser.getString("userBio"), TextView.BufferType.EDITABLE);
 
-        ParseFile profilePictureParseFile = currentUser.getParseFile("userPicture");
+        ParseFile profilePictureParseFile = currentUser.getParseFile("pictureFile");
 
         if (profilePictureParseFile != null) {
-            profilePictureParseFile.getDataInBackground(new GetDataCallback() {
-
-                @Override
-                public void done(byte[] data, ParseException e) {
-
-                    if (e == null) {
-                        Bitmap pic = BitmapFactory.decodeByteArray(data, 0, data.length);
-
-                        if (pic != null) {
-                            userProfilePic.setImageBitmap(pic);
-                        }
-                    }
-                }
-            });
+            try {
+                profilePicture = profilePictureParseFile.getData();
+                userProfilePic.setImageBitmap(BitmapFactory.decodeByteArray(profilePicture, 0, profilePicture.length));
+            } catch (ParseException e) {
+                profilePicture = null;
+            }
         }
+
 
         Button uploadUserPhotoButton = (Button) findViewById(R.id.upload_profile_pic);
         uploadUserPhotoButton.setOnClickListener(new View.OnClickListener() {
