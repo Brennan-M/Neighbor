@@ -2,36 +2,85 @@ package com.csci4448.android.neighbor;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetDataCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
+
 public class EditProfileActivity extends AppCompatActivity {
 
+    private int IMG_RESULT = 1;
 
+    private byte[] profilePicture;
+    ImageView userProfilePic;
     private EditText fullName;
     private EditText location;
     private EditText userBio;
+    private ParseUser currentUser;
 
-    // TODO: Could fill in the current bio as the text for the edittexts in the future.
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        currentUser = ParseUser.getCurrentUser();
+
         fullName = (EditText) findViewById(R.id.fullname_edittext);
         location = (EditText) findViewById(R.id.location_edittext);
         userBio = (EditText) findViewById(R.id.user_bio_edittext);
+        userProfilePic = (ImageView) findViewById(R.id.profileImage);
+
+        fullName.setText(currentUser.getString("memberName"), TextView.BufferType.EDITABLE);
+        location.setText(currentUser.getString("location"), TextView.BufferType.EDITABLE);
+        userBio.setText(currentUser.getString("userBio"), TextView.BufferType.EDITABLE);
+
+        ParseFile profilePictureParseFile = currentUser.getParseFile("userPicture");
+
+        if (profilePictureParseFile != null) {
+            profilePictureParseFile.getDataInBackground(new GetDataCallback() {
+
+                @Override
+                public void done(byte[] data, ParseException e) {
+
+                    if (e == null) {
+                        Bitmap pic = BitmapFactory.decodeByteArray(data, 0, data.length);
+
+                        if (pic != null) {
+                            userProfilePic.setImageBitmap(pic);
+                        }
+                    }
+                }
+            });
+        }
+
+        Button uploadUserPhotoButton = (Button) findViewById(R.id.upload_profile_pic);
+        uploadUserPhotoButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+
+                Intent gallery = new Intent(Intent.ACTION_PICK,
+                        android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(gallery, IMG_RESULT);
+            }
+        });
 
         Button submitChangesButton = (Button) findViewById(R.id.submit_profile_changes);
         submitChangesButton.setOnClickListener(new View.OnClickListener() {
@@ -41,23 +90,46 @@ public class EditProfileActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    /* Source ProgrammerGuru.com */
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        try {
+
+            if (requestCode == IMG_RESULT && resultCode == RESULT_OK && null != data) {
+
+                Uri imageChosen = data.getData();
+                Bitmap pictureData = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageChosen);
+
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                pictureData.compress(Bitmap.CompressFormat.JPEG, 100, bos);
+
+                profilePicture = bos.toByteArray();
+                userProfilePic.setImageBitmap(BitmapFactory.decodeByteArray(profilePicture, 0, profilePicture.length));
+
+            } else {
+                Toast.makeText(this, "Image not selected.", Toast.LENGTH_LONG).show();
+            }
+
+        } catch (Exception e) {
+            Toast.makeText(this, "Photo could not be selected.", Toast.LENGTH_LONG).show();
+        }
+
+    }
+
     private void updateProfileChanges() {
 
         String userLocation = location.getText().toString().trim();
         String userFullname = fullName.getText().toString().trim();
         String userBioInfo = userBio.getText().toString().trim();
 
-        ParseUser currentUser = ParseUser.getCurrentUser();
+        currentUser.put("location", userLocation);
+        currentUser.put("userBio", userBioInfo);
+        currentUser.put("memberName", userFullname);
 
-        if (!userLocation.matches("")) {
-            currentUser.put("location", userLocation);
-        }
-        if (!userBioInfo.matches("")) {
-            currentUser.put("userBio", userBioInfo);
-        }
-        if (!userFullname.matches("")) {
-            currentUser.put("memberName", userFullname);
-        }
+        ParseFile profilePicParseFile = new ParseFile("profilePic.jpg", profilePicture);
+        currentUser.put("pictureFile", profilePicParseFile);
 
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
