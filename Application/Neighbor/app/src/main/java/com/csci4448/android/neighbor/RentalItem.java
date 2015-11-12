@@ -1,5 +1,6 @@
 package com.csci4448.android.neighbor;
 
+import com.parse.ParseClassName;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -10,7 +11,7 @@ import com.parse.SaveCallback;
 /**
  * Created by Brennan on 11/12/15.
  */
-
+@ParseClassName("RentalItem")
 public class RentalItem extends ParseObject {
 
 

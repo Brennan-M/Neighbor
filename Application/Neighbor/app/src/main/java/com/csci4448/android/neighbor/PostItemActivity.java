@@ -1,5 +1,6 @@
 package com.csci4448.android.neighbor;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,7 +8,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -104,44 +105,73 @@ public class PostItemActivity extends AppCompatActivity {
 
     protected void postItemToNeighbor() {
 
-        Log.v("NEIGHBOR", "called PostItem");
         currentUser = ParseUser.getCurrentUser();
         String postName = itemName.getText().toString().trim();
         String postLocation = itemLocation.getText().toString().trim();
         String postDescription = itemDescription.getText().toString().trim();
         String stringCost = itemCost.getText().toString().trim();
         String postPerTime = costPerTimeSpinner.getSelectedItem().toString();
-        //ParseFile postPicture = new ParseFile("itemPicture.jpg", itemData);
+
+        boolean valid_post = true;
 
         RentalItem newPost = new RentalItem();
 
-        /*
         if (!stringCost.matches("")) {
             double cost = Double.parseDouble(stringCost);
             newPost.setCost(cost);
-        }*/
+        } else {
+            valid_post = false;
+        }
+
         if (!postName.matches("")) {
             newPost.setName(postName);
+        } else {
+            valid_post = false;
         }
+
         if (!postLocation.matches("")) {
             newPost.setLocation(postLocation);
+        } else {
+            valid_post = false;
         }
+
         if (!postDescription.matches("")) {
             newPost.setDescription(postDescription);
+        } else {
+            valid_post = false;
         }
+
         if (!postPerTime.matches("")) {
             newPost.setPerTime(postPerTime);
+        } else {
+            valid_post = false;
         }
 
+        if (itemData != null) {
+            ParseFile postPicture = new ParseFile("itemPicture.jpg", itemData);
+            newPost.setPhoto(postPicture);
+        } else {
+            valid_post = false;
+        }
+
+        if (currentUser == null) {
+            valid_post = false;
+        }
         newPost.setOwner(currentUser);
-        //newPost.setPhoto(postPicture);
 
-//        final ProgressDialog dialog = new ProgressDialog(this);
-//        dialog.setMessage("Saving Post...");
-//        dialog.show();
-//        newPost.submitRentalItem();
-//        dialog.dismiss();
 
+        if (valid_post == true) {
+            final ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setMessage("Saving Post...");
+            dialog.show();
+            newPost.submitRentalItem();
+            dialog.dismiss();
+            Intent intent = new Intent(this, HomescreenActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } else {
+            Toast.makeText(PostItemActivity.this, "Error: Missing Fields", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
