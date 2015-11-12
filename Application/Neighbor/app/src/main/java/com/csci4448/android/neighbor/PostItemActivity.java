@@ -7,9 +7,11 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +48,14 @@ public class PostItemActivity extends AppCompatActivity {
         itemLocation = (EditText) findViewById(R.id.item_location_edittext);
         itemPicture = (ImageView) findViewById(R.id.item_image);
         costPerTimeSpinner = (Spinner) findViewById(R.id.cost_perTime_spinner);
+
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.perTime_options, android.R.layout.simple_spinner_item);
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        costPerTimeSpinner.setAdapter(adapter);
+
 
         Button attachPhotoButton = (Button) findViewById(R.id.upload_photo_button);
         attachPhotoButton.setOnClickListener(new View.OnClickListener() {
@@ -92,7 +102,45 @@ public class PostItemActivity extends AppCompatActivity {
 
     }
 
-    private void postItemToNeighbor() {
+    protected void postItemToNeighbor() {
+
+        Log.v("NEIGHBOR", "called PostItem");
+        currentUser = ParseUser.getCurrentUser();
+        String postName = itemName.getText().toString().trim();
+        String postLocation = itemLocation.getText().toString().trim();
+        String postDescription = itemDescription.getText().toString().trim();
+        String stringCost = itemCost.getText().toString().trim();
+        String postPerTime = costPerTimeSpinner.getSelectedItem().toString();
+        //ParseFile postPicture = new ParseFile("itemPicture.jpg", itemData);
+
+        RentalItem newPost = new RentalItem();
+
+        /*
+        if (!stringCost.matches("")) {
+            double cost = Double.parseDouble(stringCost);
+            newPost.setCost(cost);
+        }*/
+        if (!postName.matches("")) {
+            newPost.setName(postName);
+        }
+        if (!postLocation.matches("")) {
+            newPost.setLocation(postLocation);
+        }
+        if (!postDescription.matches("")) {
+            newPost.setDescription(postDescription);
+        }
+        if (!postPerTime.matches("")) {
+            newPost.setPerTime(postPerTime);
+        }
+
+        newPost.setOwner(currentUser);
+        //newPost.setPhoto(postPicture);
+
+//        final ProgressDialog dialog = new ProgressDialog(this);
+//        dialog.setMessage("Saving Post...");
+//        dialog.show();
+//        newPost.submitRentalItem();
+//        dialog.dismiss();
 
     }
 

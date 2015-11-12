@@ -18,4 +18,9 @@
     <string name="title_activity_edit_profile">EditProfileActivity</string>
     <string name="search_item_hint">Search For An Item</string>
     <string name="title_activity_post_item">PostItemActivity</string>
+    <string-array name="perTime_options">
+        <item>Day</item>
+        <item>Week</item>
+        <item>Month</item>
+    </string-array>
 </resources>
