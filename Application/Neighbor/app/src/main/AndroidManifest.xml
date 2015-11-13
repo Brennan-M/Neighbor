@@ -45,6 +45,10 @@
             android:name=".PostItemActivity"
             android:label="@string/title_activity_post_item" >
         </activity>
+        <activity
+            android:name=".SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
     </application>
 
 </manifest>
