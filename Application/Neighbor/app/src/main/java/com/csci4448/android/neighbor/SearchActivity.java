@@ -80,7 +80,7 @@ public class SearchActivity extends AppCompatActivity {
                 TextView perTimeView = (TextView) view.findViewById(R.id.itemPerTime);
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
-                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.itemPhoto);
+                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.profilePicture);
 
 
                 ParseFile image = post.getPhoto();

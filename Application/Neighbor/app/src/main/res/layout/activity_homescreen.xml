@@ -7,6 +7,15 @@
     tools:context="com.csci4448.android.neighbor.HomescreenActivity"
     android:id="@+id/dit">
 
+    <com.parse.ParseImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="175dp"
+        android:layout_height="225dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="34dp" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,6 +46,46 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Welcome "
+        android:id="@+id/staticwWelcome"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/userName"
+        android:layout_alignTop="@+id/staticwWelcome"
+        android:layout_toRightOf="@+id/staticwWelcome"
+        android:layout_toEndOf="@+id/staticwWelcome" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items I own"
+        android:id="@+id/viewItemsOwnedButton"
+        android:layout_above="@+id/post_item"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="31dp"
+        android:layout_toLeftOf="@+id/viewRentingItemsButton"
+        android:layout_toStartOf="@+id/viewRentingItemsButton" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items I am Renting"
+        android:id="@+id/viewRentingItemsButton"
+        android:layout_alignTop="@+id/viewItemsOwnedButton"
+        android:layout_toRightOf="@+id/profilePicture"
+        android:layout_toEndOf="@+id/profilePicture" />
 
 
 </RelativeLayout>

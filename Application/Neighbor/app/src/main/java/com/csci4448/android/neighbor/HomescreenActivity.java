@@ -1,6 +1,7 @@
 package com.csci4448.android.neighbor;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -8,18 +9,42 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class HomescreenActivity extends AppCompatActivity {
 
     private EditText searchQuery;
+    ParseUser currentUser;
+    private byte[] profilePicture;
+    ImageView userProfilePic;
+    private TextView fullName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
+
+        currentUser = ParseUser.getCurrentUser();
+        fullName = (TextView) findViewById(R.id.userName);
+        userProfilePic = (ImageView) findViewById(R.id.profilePicture);
+
+        fullName.setText(currentUser.getString("memberName"), TextView.BufferType.EDITABLE);
+        ParseFile profilePictureParseFile = currentUser.getParseFile("pictureFile");
+
+        if (profilePictureParseFile != null) {
+            try {
+                profilePicture = profilePictureParseFile.getData();
+                userProfilePic.setImageBitmap(BitmapFactory.decodeByteArray(profilePicture, 0, profilePicture.length));
+            } catch (ParseException e) {
+                profilePicture = null;
+            }
+        }
 
         Button postItemButton = (Button) findViewById(R.id.post_item);
         postItemButton.setOnClickListener(new View.OnClickListener() {
