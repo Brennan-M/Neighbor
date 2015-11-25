@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -21,13 +22,26 @@ import com.parse.ParseUser;
 public class SearchActivity extends AppCompatActivity {
 
 
-    private ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        String queryString;
+        final String[] queryTokens;
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            queryString = extras.getString("Query");
+            queryTokens = queryString.split("\\s+");
+        } else {
+            Toast.makeText(SearchActivity.this, "Something went wrong. Redirecting to HomeScreen.", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(SearchActivity.this, HomescreenActivity.class);
+            startActivity(intent);
+            queryTokens = null;
+        }
+
+        ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
 
         /* This is the ParseQueryAdapter which prepares us to retrieve results from our database */
         ParseQueryAdapter.QueryFactory<RentalItem> factory =
@@ -36,6 +50,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     ParseQuery<RentalItem> query = RentalItem.getQuery();
                     query.include("Owner");
+                    query.orderByAscending("createdAt");
                     return query;
                 }
             };
@@ -48,8 +63,23 @@ public class SearchActivity extends AppCompatActivity {
                     view = View.inflate(getContext(), R.layout.rental_item, null);
                 }
 
+//                boolean valid = false;
+//                for (int i = 0; i < queryTokens.length; i++) {
+//                    if (post.getName().toLowerCase().contains(queryTokens[i].toLowerCase())) {
+//                        valid = true;
+//                        break;
+//                    }
+//                }
+//
+//                if (valid == false) {
+//                    continue
+//                }
 
-                TextView contentView = (TextView) view.findViewById(R.id.itemName);
+                TextView nameView = (TextView) view.findViewById(R.id.itemName);
+                TextView costView = (TextView) view.findViewById(R.id.itemCost);
+                TextView perTimeView = (TextView) view.findViewById(R.id.itemPerTime);
+                TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
+                TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
                 ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.itemPhoto);
 
 
@@ -68,12 +98,14 @@ public class SearchActivity extends AppCompatActivity {
                     itemImage.setParseFile(null);
                 }
 
-                contentView.setText(post.getName());
-                //usernameView.setText(post.getUser().getUsername());
+                nameView.setText(post.getName());
+                costView.setText("  $" + Double.toString(post.getCost()) + "   ");
+                perTimeView.setText(post.getPerTime());
+                locationView.setText(post.getLocation());
+                descriptionView.setText(post.getDescription());
                 return view;
             }
         };
-
 
         ListView itemsListView = (ListView) findViewById(R.id.item_feed_list);
         itemsListView.setAdapter(RentalItemFeedQueryAdapter);

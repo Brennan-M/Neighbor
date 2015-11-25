@@ -35,6 +35,7 @@ public class HomescreenActivity extends AppCompatActivity {
         searchQueryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String searchingFor = searchQuery.getText().toString().trim();
+                searchQuery.setText("");
                 if (searchingFor.matches("")) {
                     Toast.makeText(HomescreenActivity.this, "Please specify an item to search for...", Toast.LENGTH_LONG).show();
                 } else {
