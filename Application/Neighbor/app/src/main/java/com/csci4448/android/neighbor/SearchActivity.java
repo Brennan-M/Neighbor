@@ -1,16 +1,82 @@
 package com.csci4448.android.neighbor;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseImageView;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 
 public class SearchActivity extends AppCompatActivity {
+
+
+    private ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+
+
+        /* This is the ParseQueryAdapter which prepares us to retrieve results from our database */
+        ParseQueryAdapter.QueryFactory<RentalItem> factory =
+            new ParseQueryAdapter.QueryFactory<RentalItem>() {
+                public ParseQuery<RentalItem> create() {
+
+                    ParseQuery<RentalItem> query = RentalItem.getQuery();
+                    query.include("Owner");
+                    return query;
+                }
+            };
+
+
+        RentalItemFeedQueryAdapter = new ParseQueryAdapter<RentalItem>(this, factory) {
+            @Override
+            public View getItemView(final RentalItem post, View view, ViewGroup parent) {
+                if (view == null) {
+                    view = View.inflate(getContext(), R.layout.rental_item, null);
+                }
+
+
+                TextView contentView = (TextView) view.findViewById(R.id.itemName);
+                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.itemPhoto);
+
+
+                ParseFile image = post.getPhoto();
+                if (image != null) {
+                    itemImage.setVisibility(View.VISIBLE);
+                    itemImage.setParseFile(image);
+                    itemImage.loadInBackground(new GetDataCallback() {
+                        @Override
+                        public void done(byte[] data, ParseException e) {
+                            // nothing to do
+                        }
+                    });
+                } else {
+                    itemImage.setVisibility(View.GONE);
+                    itemImage.setParseFile(null);
+                }
+
+                contentView.setText(post.getName());
+                //usernameView.setText(post.getUser().getUsername());
+                return view;
+            }
+        };
+
+
+        ListView itemsListView = (ListView) findViewById(R.id.item_feed_list);
+        itemsListView.setAdapter(RentalItemFeedQueryAdapter);
     }
 
     @Override
@@ -28,8 +94,13 @@ public class SearchActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.sign_out) {
+            ParseUser.logOut();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

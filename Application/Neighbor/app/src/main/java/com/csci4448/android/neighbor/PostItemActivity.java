@@ -183,18 +183,18 @@ public class PostItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        //noinspection SimplifiableIfStatement
         //noinspection SimplifiableIfStatement
         if (id == R.id.sign_out) {
             ParseUser.logOut();
 
             Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-        } else if (id == R.id.edit_profile) {
-            Intent intent = new Intent(this, EditProfileActivity.class);
             startActivity(intent);
         }
 

@@ -7,10 +7,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
 public class HomescreenActivity extends AppCompatActivity {
+
+    private EditText searchQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,22 @@ public class HomescreenActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(HomescreenActivity.this, PostItemActivity.class);
                 startActivity(intent);
+            }
+        });
+
+        searchQuery = (EditText) findViewById(R.id.search_item_edittext);
+
+        Button searchQueryButton = (Button) findViewById(R.id.search_button);
+        searchQueryButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                String searchingFor = searchQuery.getText().toString().trim();
+                if (searchingFor.matches("")) {
+                    Toast.makeText(HomescreenActivity.this, "Please specify an item to search for...", Toast.LENGTH_LONG).show();
+                } else {
+                    Intent intent = new Intent(HomescreenActivity.this, SearchActivity.class);
+                    intent.putExtra("Query", searchingFor);
+                    startActivity(intent);
+                }
             }
         });
     }
