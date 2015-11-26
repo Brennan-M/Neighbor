@@ -59,41 +59,12 @@ public class SearchActivity extends AppCompatActivity {
                 }
             };
 
-//        RentalItem[] results = {};
-//        final ArrayAdapter<RentalItem> adapter = new ArrayAdapter<RentalItem>(this, R.layout.rental_item, results);
-//        itemsListView.setAdapter(adapter);
-//
-//        ParseQuery<RentalItem> query = ParseQuery.getQuery(RentalItem.class);
-//        query.findInBackground(new FindCallback<RentalItem>() {
-//            public void done(List<RentalItem> itemList, ParseException e) {
-//                if (e == null) {
-//                    for (int i = 0; i < itemList.size(); i++) {
-//                        adapter.add(itemList.get(i));
-//                    }
-//                } else {
-//                    Log.d("score", "Error: " + e.getMessage());
-//                }
-//            }
-//        });
-
         RentalItemFeedQueryAdapter = new ParseQueryAdapter<RentalItem>(this, factory) {
             @Override
             public View getItemView(final RentalItem post, View view, ViewGroup parent) {
                 if (view == null) {
                     view = View.inflate(getContext(), R.layout.rental_item, null);
                 }
-
-//                boolean valid = false;
-//                for (int i = 0; i < queryTokens.length; i++) {
-//                    if (post.getName().toLowerCase().contains(queryTokens[i].toLowerCase())) {
-//                        valid = true;
-//                        break;
-//                    }
-//                }
-//
-//                if (valid == false) {
-//                    continue
-//                }
 
                 TextView nameView = (TextView) view.findViewById(R.id.itemName);
                 TextView costView = (TextView) view.findViewById(R.id.itemCost);
