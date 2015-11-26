@@ -44,7 +44,8 @@ public class SearchActivity extends AppCompatActivity {
             queryTokens = null;
         }
 
-        ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
+        final ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
+        final ListView itemsListView = (ListView) findViewById(R.id.item_feed_list);
 
         /* This is the ParseQueryAdapter which prepares us to retrieve results from our database */
         ParseQueryAdapter.QueryFactory<RentalItem> factory =
@@ -52,12 +53,29 @@ public class SearchActivity extends AppCompatActivity {
                 public ParseQuery<RentalItem> create() {
 
                     ParseQuery<RentalItem> query = RentalItem.getQuery();
+                    query.whereEqualTo("Renter", null);
                     query.include("Owner");
-                    query.orderByAscending("createdAt");
+                    query.orderByDescending("createdAt");
                     return query;
                 }
             };
 
+//        RentalItem[] results = {};
+//        final ArrayAdapter<RentalItem> adapter = new ArrayAdapter<RentalItem>(this, R.layout.rental_item, results);
+//        itemsListView.setAdapter(adapter);
+//
+//        ParseQuery<RentalItem> query = ParseQuery.getQuery(RentalItem.class);
+//        query.findInBackground(new FindCallback<RentalItem>() {
+//            public void done(List<RentalItem> itemList, ParseException e) {
+//                if (e == null) {
+//                    for (int i = 0; i < itemList.size(); i++) {
+//                        adapter.add(itemList.get(i));
+//                    }
+//                } else {
+//                    Log.d("score", "Error: " + e.getMessage());
+//                }
+//            }
+//        });
 
         RentalItemFeedQueryAdapter = new ParseQueryAdapter<RentalItem>(this, factory) {
             @Override
@@ -99,6 +117,9 @@ public class SearchActivity extends AppCompatActivity {
                             public void done(ParseException e) {
                                 if (e == null) {
                                     currentUser.saveInBackground();
+                                    Intent intent = new Intent(SearchActivity.this, HomescreenActivity.class);
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    startActivity(intent);
                                 } else {
                                     Toast.makeText(SearchActivity.this, "Could not rent this item, error occured..", Toast.LENGTH_LONG).show();
                                 }
@@ -132,7 +153,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         };
 
-        ListView itemsListView = (ListView) findViewById(R.id.item_feed_list);
         itemsListView.setAdapter(RentalItemFeedQueryAdapter);
     }
 
