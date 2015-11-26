@@ -30,18 +30,16 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        String queryString;
-        final String[] queryTokens;
+        final String queryString;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             queryString = extras.getString("Query");
-            queryTokens = queryString.split("\\s+");
         } else {
             Toast.makeText(SearchActivity.this, "Something went wrong. Redirecting to HomeScreen.", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(SearchActivity.this, HomescreenActivity.class);
             startActivity(intent);
-            queryTokens = null;
+            queryString = null;
         }
 
         final ParseQueryAdapter<RentalItem> RentalItemFeedQueryAdapter;
@@ -54,6 +52,7 @@ public class SearchActivity extends AppCompatActivity {
 
                     ParseQuery<RentalItem> query = RentalItem.getQuery();
                     query.whereEqualTo("Renter", null);
+                    query.whereContains("itemName", queryString);
                     query.include("Owner");
                     query.orderByDescending("createdAt");
                     return query;
