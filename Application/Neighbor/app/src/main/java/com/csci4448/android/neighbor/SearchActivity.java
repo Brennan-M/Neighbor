@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,7 +18,9 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -82,6 +85,28 @@ public class SearchActivity extends AppCompatActivity {
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
                 ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.profilePicture);
 
+                Button rentItemButton = (Button) view.findViewById(R.id.rentItemButton);
+
+                rentItemButton.setOnClickListener(new View.OnClickListener() {
+                    public void onClick(View v) {
+
+                        final ParseUser currentUser = ParseUser.getCurrentUser();
+                        post.setRenter(currentUser);
+                        ParseRelation itemsRented = currentUser.getRelation("ItemsRented");
+                        itemsRented.add(post);
+
+                        post.saveInBackground(new SaveCallback() {
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    currentUser.saveInBackground();
+                                } else {
+                                    Toast.makeText(SearchActivity.this, "Could not rent this item, error occured..", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
+                    }
+                });
+
 
                 ParseFile image = post.getPhoto();
                 if (image != null) {
@@ -99,7 +124,7 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
                 nameView.setText(post.getName());
-                costView.setText("  $" + Double.toString(post.getCost()) + "   ");
+                costView.setText(Double.toString(post.getCost()));
                 perTimeView.setText(post.getPerTime());
                 locationView.setText(post.getLocation());
                 descriptionView.setText(post.getDescription());

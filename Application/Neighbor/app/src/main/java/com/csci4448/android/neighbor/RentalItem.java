@@ -82,9 +82,7 @@ public class RentalItem extends ParseObject {
     public void submitRentalItem() {
         this.saveInBackground(new SaveCallback() {
             @Override
-            public void done(ParseException e) {
-
-            }
+            public void done(ParseException e) {}
         });
     }
 

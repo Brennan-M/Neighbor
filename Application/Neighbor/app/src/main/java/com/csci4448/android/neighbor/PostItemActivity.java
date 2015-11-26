@@ -19,6 +19,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
@@ -36,7 +37,6 @@ public class PostItemActivity extends AppCompatActivity {
 
     private byte[] itemData;
     private ImageView itemPicture;
-    private ParseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,7 +105,7 @@ public class PostItemActivity extends AppCompatActivity {
 
     protected void postItemToNeighbor() {
 
-        currentUser = ParseUser.getCurrentUser();
+        final ParseUser currentUser = ParseUser.getCurrentUser();
         String postName = itemName.getText().toString().trim();
         String postLocation = itemLocation.getText().toString().trim();
         String postDescription = itemDescription.getText().toString().trim();
@@ -158,6 +158,7 @@ public class PostItemActivity extends AppCompatActivity {
             valid_post = false;
         }
         newPost.setOwner(currentUser);
+        ParseRelation itemsOwned = currentUser.getRelation("ItemsOwned");
 
 
         if (valid_post == true) {
@@ -165,6 +166,8 @@ public class PostItemActivity extends AppCompatActivity {
             dialog.setMessage("Saving Post...");
             dialog.show();
             newPost.submitRentalItem();
+            itemsOwned.add(newPost);
+            currentUser.saveInBackground();
             dialog.dismiss();
             Intent intent = new Intent(this, HomescreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
