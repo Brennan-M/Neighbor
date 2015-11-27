@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <com.parse.ParseImageView
+        android:id="@+id/profilePicture"
+        android:layout_width="175dp"
+        android:layout_height="250dp"
+        android:layout_below="@+id/itemName"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/itemName"
+        android:layout_marginTop="24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/itemDescription"
+        android:layout_marginTop="31dp"
+        android:layout_alignTop="@+id/profilePicture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/profilePicture"
+        android:layout_toStartOf="@+id/profilePicture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Location:"
+        android:id="@+id/staticTextLocation"
+        android:layout_below="@+id/profilePicture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/itemLocation"
+        android:layout_alignTop="@+id/staticTextLocation"
+        android:layout_toRightOf="@+id/itemCost"
+        android:layout_toStartOf="@+id/profilePicture"
+        android:layout_alignBottom="@+id/staticTextLocation"
+        android:layout_alignRight="@+id/profilePicture"
+        android:layout_alignEnd="@+id/profilePicture" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Cost:"
+        android:id="@+id/staticTextCost"
+        android:layout_below="@+id/staticTextLocation"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/itemCost"
+        android:layout_toLeftOf="@+id/staticTextPer"
+        android:layout_above="@+id/staticTextOwner"
+        android:layout_toRightOf="@+id/staticTextCost"
+        android:layout_toEndOf="@+id/staticTextCost" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/staticTextPer"
+        android:text="per"
+        android:layout_below="@+id/itemLocation"
+        android:layout_toRightOf="@+id/staticTextLocation"
+        android:layout_toEndOf="@+id/staticTextLocation"
+        android:layout_marginLeft="49dp"
+        android:layout_marginStart="49dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:id="@+id/itemPerTime"
+        android:layout_alignTop="@+id/staticTextPer"
+        android:layout_toRightOf="@+id/staticTextPer"
+        android:layout_marginLeft="23dp"
+        android:layout_marginStart="23dp"
+        android:layout_alignBottom="@+id/staticTextPer"
+        android:layout_alignRight="@+id/itemLocation"
+        android:layout_alignEnd="@+id/itemLocation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Owner:"
+        android:id="@+id/staticTextOwner"
+        android:layout_below="@+id/staticTextCost"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

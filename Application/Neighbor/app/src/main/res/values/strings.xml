@@ -24,4 +24,6 @@
         <item>Month</item>
     </string-array>
     <string name="title_activity_search">SearchActivity</string>
+    <string name="title_activity_items_owned">ItemsOwnedActivity</string>
+    <string name="title_activity_items_rented">ItemsRentedActivity</string>
 </resources>

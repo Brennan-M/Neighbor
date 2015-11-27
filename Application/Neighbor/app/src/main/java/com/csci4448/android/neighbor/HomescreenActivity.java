@@ -46,6 +46,22 @@ public class HomescreenActivity extends AppCompatActivity {
             }
         }
 
+        Button itemsOwnedButton = (Button) findViewById(R.id.viewItemsOwnedButton);
+        itemsOwnedButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(HomescreenActivity.this, ItemsOwnedActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button itemsRentedButton = (Button) findViewById(R.id.viewRentingItemsButton);
+        itemsRentedButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent intent = new Intent(HomescreenActivity.this, ItemsRentedActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button postItemButton = (Button) findViewById(R.id.post_item);
         postItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
