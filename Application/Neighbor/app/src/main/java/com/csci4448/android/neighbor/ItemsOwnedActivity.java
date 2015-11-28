@@ -53,7 +53,7 @@ public class ItemsOwnedActivity extends AppCompatActivity {
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
                 ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.profilePicture);
-                
+
 
 
                 ParseFile image = post.getPhoto();

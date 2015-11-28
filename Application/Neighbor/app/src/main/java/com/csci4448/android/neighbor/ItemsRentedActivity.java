@@ -67,7 +67,7 @@ public class ItemsRentedActivity extends AppCompatActivity {
                 } else {
                     itemImage.setVisibility(View.GONE);
                     itemImage.setParseFile(null);
-                }
+                } 
 
                 nameView.setText(post.getName());
                 costView.setText(Double.toString(post.getCost()));
