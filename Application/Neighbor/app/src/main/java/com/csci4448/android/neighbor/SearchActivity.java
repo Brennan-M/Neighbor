@@ -3,6 +3,7 @@ package com.csci4448.android.neighbor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,7 @@ public class SearchActivity extends AppCompatActivity {
                 TextView costView = (TextView) view.findViewById(R.id.itemCost);
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
+                TextView ownerNameView = (TextView) view.findViewById(R.id.OwnerTextView);
                 ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.userProfilePicture);
 
                 Button rentItemButton = (Button) view.findViewById(R.id.rentItemButton);
@@ -125,6 +127,14 @@ public class SearchActivity extends AppCompatActivity {
                 costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
+                ParseUser owner = post.getOwner();
+                String name = "";
+                try {
+                    name = owner.fetchIfNeeded().getString("memberName");
+                } catch (ParseException e) {
+                    Log.v("ERROR: ", e.toString());
+                }
+                ownerNameView.setText(" " + name);
                 return view;
             }
         };
