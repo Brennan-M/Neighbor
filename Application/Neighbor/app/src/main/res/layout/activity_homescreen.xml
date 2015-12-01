@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="34dp" />
+        android:layout_marginTop="34dp"
+        android:layout_above="@+id/textView4" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -29,22 +30,22 @@
         android:layout_height="wrap_content"
         android:text="Post Item"
         android:id="@+id/post_item"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_above="@+id/viewItemsOwnedButton"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_above="@+id/search_item_edittext" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/search_button"
-        android:layout_below="@+id/post_item"
-        android:layout_toRightOf="@+id/search_item_edittext"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/search_item_edittext"
+        android:layout_alignTop="@+id/search_item_edittext"
+        android:layout_toRightOf="@+id/search_item_edittext" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -70,21 +71,41 @@
         android:layout_height="wrap_content"
         android:text="Items I own"
         android:id="@+id/viewItemsOwnedButton"
-        android:layout_above="@+id/post_item"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="31dp"
-        android:layout_toLeftOf="@+id/viewRentingItemsButton"
-        android:layout_toStartOf="@+id/viewRentingItemsButton" />
+        android:layout_alignRight="@+id/search_button"
+        android:layout_alignEnd="@+id/search_button"
+        android:layout_above="@+id/viewRentingItemsButton"
+        android:layout_alignLeft="@+id/post_item"
+        android:layout_alignStart="@+id/post_item" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Items I am Renting"
         android:id="@+id/viewRentingItemsButton"
-        android:layout_alignTop="@+id/viewItemsOwnedButton"
-        android:layout_toRightOf="@+id/userProfilePicture"
-        android:layout_toEndOf="@+id/userProfilePicture" />
+        android:layout_alignBottom="@+id/userProfilePicture"
+        android:layout_alignLeft="@+id/viewItemsOwnedButton"
+        android:layout_alignStart="@+id/viewItemsOwnedButton" />
+
+    <ListView
+        android:id="@+id/item_notification_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.48"
+        android:layout_below="@+id/textView4"
+        android:layout_above="@+id/search_item_edittext"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Alerts and Notifications..."
+        android:textColor="@color/bgPurple"
+        android:id="@+id/textView4"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

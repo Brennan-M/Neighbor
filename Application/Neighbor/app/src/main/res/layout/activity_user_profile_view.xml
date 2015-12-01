@@ -32,23 +32,24 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/userBioTextView"
+        android:layout_below="@+id/userLocation"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginTop="28dp"
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/userNameTextView"
-        android:layout_alignEnd="@+id/userNameTextView"
-        android:layout_below="@+id/userProfilePicture" />
+        android:layout_alignEnd="@+id/userNameTextView" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/userLocation"
-        android:layout_alignTop="@+id/userProfilePicture"
-        android:layout_toRightOf="@+id/userProfilePicture"
-        android:layout_marginTop="42dp"
-        android:layout_alignRight="@+id/userNameTextView"
-        android:layout_alignEnd="@+id/userNameTextView" />
+        android:layout_below="@+id/userProfilePicture"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/userBioTextView"
+        android:layout_alignEnd="@+id/userBioTextView" />
 
 </RelativeLayout>
 

@@ -4,17 +4,23 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 public class HomescreenActivity extends AppCompatActivity {
@@ -86,6 +92,81 @@ public class HomescreenActivity extends AppCompatActivity {
                 }
             }
         });
+
+        final ParseQueryAdapter<RentalNotification> RentalNotificationFeedQueryAdapter;
+        final ListView notificationsListView = (ListView) findViewById(R.id.item_notification_list);
+
+        /* This is the ParseQueryAdapter which prepares us to retrieve results from our database */
+        ParseQueryAdapter.QueryFactory<RentalNotification> factory =
+                new ParseQueryAdapter.QueryFactory<RentalNotification>() {
+                    public ParseQuery<RentalNotification> create() {
+
+                        ParseQuery<RentalNotification> query = RentalNotification.getQuery();
+                        query.whereEqualTo("To_", currentUser);
+                        return query;
+                    }
+                };
+
+        RentalNotificationFeedQueryAdapter = new ParseQueryAdapter<RentalNotification>(this, factory) {
+            @Override
+            public View getItemView(final RentalNotification notification, View view, ViewGroup parent) {
+                if (view == null) {
+                    view = View.inflate(getContext(), R.layout.rental_notification, null);
+                }
+
+                TextView nameView = (TextView) view.findViewById(R.id.item_renter);
+                TextView itemName = (TextView) view.findViewById(R.id.item_renting);
+                TextView emailView = (TextView) view.findViewById(R.id.renter_email);
+
+
+                final ParseUser renter = notification.getFrom();
+                String renterName = "";
+                try {
+                    renterName = renter.fetchIfNeeded().getString("memberName");
+                } catch (ParseException e) {
+                    Log.v("ERROR: ", e.toString());
+                }
+                nameView.setText(renterName);
+
+                if (!renterName.equals("")) {
+                    nameView.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(HomescreenActivity.this, UserProfileViewActivity.class);
+                            String userID = "";
+                            try {
+                                userID = renter.fetchIfNeeded().getObjectId();
+                            } catch (ParseException e) {
+                                Log.v("ERROR: ", e.toString());
+                            }
+                            intent.putExtra("userID", userID);
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                String renterEmail = "";
+                try {
+                    renterEmail = renter.fetchIfNeeded().getString("email");
+                } catch (ParseException e) {
+                    Log.v("ERROR: ", e.toString());
+                }
+                emailView.setText(renterEmail);
+
+                final ParseObject rentItem =  notification.getItem();
+                String rentItemName = "";
+                try {
+                    rentItemName = rentItem.fetchIfNeeded().getString("itemName");
+                } catch (ParseException e) {
+                    Log.v("ERROR: ", e.toString());
+                }
+                itemName.setText(rentItemName);
+
+                return view;
+            }
+        };
+
+        notificationsListView.setAdapter(RentalNotificationFeedQueryAdapter);
+
     }
 
     @Override
