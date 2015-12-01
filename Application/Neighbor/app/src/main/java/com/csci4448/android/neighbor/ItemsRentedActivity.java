@@ -86,13 +86,13 @@ public class ItemsRentedActivity extends AppCompatActivity {
                     renterNameView.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             Intent intent = new Intent(ItemsRentedActivity.this, UserProfileViewActivity.class);
-                            String username = "";
+                            String userID = "";
                             try {
-                                username = renter.fetchIfNeeded().getUsername();
+                                userID = renter.fetchIfNeeded().getObjectId();
                             } catch (ParseException e) {
                                 Log.v("ERROR: ", e.toString());
                             }
-                            intent.putExtra("username", username);
+                            intent.putExtra("userID", userID);
                             startActivity(intent);
                         }
                     });

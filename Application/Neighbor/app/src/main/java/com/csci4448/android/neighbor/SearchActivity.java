@@ -140,13 +140,13 @@ public class SearchActivity extends AppCompatActivity {
                     ownerNameView.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
                             Intent intent = new Intent(SearchActivity.this, UserProfileViewActivity.class);
-                            String username = "";
+                            String userID = "";
                             try {
-                                username = owner.fetchIfNeeded().getUsername();
+                                userID = owner.fetchIfNeeded().getObjectId();
                             } catch (ParseException e) {
                                 Log.v("ERROR: ", e.toString());
                             }
-                            intent.putExtra("username", username);
+                            intent.putExtra("userID", userID);
                             startActivity(intent);
                         }
                     });
