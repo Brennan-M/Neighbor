@@ -76,7 +76,7 @@ public class ItemsOwnedActivity extends AppCompatActivity {
                 costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
-                ParseUser renter = post.getRenter();
+                final ParseUser renter = post.getRenter();
                 String name = "";
                 try {
                     name = renter.fetchIfNeeded().getString("memberName");
@@ -84,6 +84,21 @@ public class ItemsOwnedActivity extends AppCompatActivity {
                     Log.v("ERROR: ", e.toString());
                 }
                 renterNameView.setText(" " + name);
+                if (!name.equals("")) {
+                    renterNameView.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(ItemsOwnedActivity.this, UserProfileViewActivity.class);
+                            String username = "";
+                            try {
+                                username = renter.fetchIfNeeded().getUsername();
+                            } catch (ParseException e) {
+                                Log.v("ERROR: ", e.toString());
+                            }
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                        }
+                    });
+                }
                 return view;
             }
         };

@@ -127,7 +127,7 @@ public class SearchActivity extends AppCompatActivity {
                 costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
-                ParseUser owner = post.getOwner();
+                final ParseUser owner = post.getOwner();
                 String name = "";
                 try {
                     name = owner.fetchIfNeeded().getString("memberName");
@@ -135,6 +135,22 @@ public class SearchActivity extends AppCompatActivity {
                     Log.v("ERROR: ", e.toString());
                 }
                 ownerNameView.setText(" " + name);
+
+                if (!name.equals("")) {
+                    ownerNameView.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            Intent intent = new Intent(SearchActivity.this, UserProfileViewActivity.class);
+                            String username = "";
+                            try {
+                                username = owner.fetchIfNeeded().getUsername();
+                            } catch (ParseException e) {
+                                Log.v("ERROR: ", e.toString());
+                            }
+                            intent.putExtra("username", username);
+                            startActivity(intent);
+                        }
+                    });
+                }
                 return view;
             }
         };
