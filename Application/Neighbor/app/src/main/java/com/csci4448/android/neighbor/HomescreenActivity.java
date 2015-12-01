@@ -32,7 +32,7 @@ public class HomescreenActivity extends AppCompatActivity {
 
         currentUser = ParseUser.getCurrentUser();
         fullName = (TextView) findViewById(R.id.userName);
-        userProfilePic = (ImageView) findViewById(R.id.profilePicture);
+        userProfilePic = (ImageView) findViewById(R.id.userProfilePicture);
 
         fullName.setText(currentUser.getString("memberName"), TextView.BufferType.EDITABLE);
         ParseFile profilePictureParseFile = currentUser.getParseFile("pictureFile");

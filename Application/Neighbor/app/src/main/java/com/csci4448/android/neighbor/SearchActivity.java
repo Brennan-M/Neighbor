@@ -69,10 +69,9 @@ public class SearchActivity extends AppCompatActivity {
 
                 TextView nameView = (TextView) view.findViewById(R.id.itemName);
                 TextView costView = (TextView) view.findViewById(R.id.itemCost);
-                TextView perTimeView = (TextView) view.findViewById(R.id.itemPerTime);
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
-                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.profilePicture);
+                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.userProfilePicture);
 
                 Button rentItemButton = (Button) view.findViewById(R.id.rentItemButton);
 
@@ -123,9 +122,8 @@ public class SearchActivity extends AppCompatActivity {
                 }
 
                 nameView.setText(post.getName());
-                costView.setText(Double.toString(post.getCost()));
-                perTimeView.setText(post.getPerTime());
-                locationView.setText(post.getLocation());
+                costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
+                locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
                 return view;
             }

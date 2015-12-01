@@ -57,6 +57,10 @@
             android:name=".ItemsRentedActivity"
             android:label="@string/title_activity_items_rented" >
         </activity>
+        <activity
+            android:name=".UserProfileViewActivity"
+            android:label="@string/title_activity_user_profile_view" >
+        </activity>
     </application>
 
 </manifest>

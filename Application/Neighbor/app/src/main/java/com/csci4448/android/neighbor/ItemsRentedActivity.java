@@ -49,10 +49,9 @@ public class ItemsRentedActivity extends AppCompatActivity {
 
                 TextView nameView = (TextView) view.findViewById(R.id.itemName);
                 TextView costView = (TextView) view.findViewById(R.id.itemCost);
-                TextView perTimeView = (TextView) view.findViewById(R.id.itemPerTime);
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
-                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.profilePicture);
+                ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.userProfilePicture);
 
                 ParseFile image = post.getPhoto();
                 if (image != null) {
@@ -70,9 +69,8 @@ public class ItemsRentedActivity extends AppCompatActivity {
                 }
 
                 nameView.setText(post.getName());
-                costView.setText(Double.toString(post.getCost()));
-                perTimeView.setText(post.getPerTime());
-                locationView.setText(post.getLocation());
+                costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
+                locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
                 return view;
             }
