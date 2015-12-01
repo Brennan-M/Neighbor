@@ -53,6 +53,7 @@ public class SearchActivity extends AppCompatActivity {
                     ParseQuery<RentalItem> query = RentalItem.getQuery();
                     query.whereEqualTo("Renter", null);
                     query.whereContains("itemName", queryString);
+                    query.whereNotEqualTo("Owner", ParseUser.getCurrentUser());
                     query.include("Owner");
                     query.orderByDescending("createdAt");
                     return query;
@@ -79,6 +80,8 @@ public class SearchActivity extends AppCompatActivity {
                     public void onClick(View v) {
 
                         final ParseUser currentUser = ParseUser.getCurrentUser();
+
+                        RentalNotification newNotification = new RentalNotification();
                         post.setRenter(currentUser);
                         ParseRelation itemsRented = currentUser.getRelation("ItemsRented");
                         itemsRented.add(post);
@@ -95,6 +98,11 @@ public class SearchActivity extends AppCompatActivity {
                                 }
                             }
                         });
+
+                        newNotification.setItem(post);
+                        newNotification.setFrom(currentUser);
+                        newNotification.setTo(post.getOwner());
+                        newNotification.submitRentalNotification();
                     }
                 });
 

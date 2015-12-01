@@ -16,6 +16,7 @@ public class NeighborSystem extends Application {
         super.onCreate();
 
         ParseObject.registerSubclass(RentalItem.class);
+        ParseObject.registerSubclass(RentalNotification.class);
         Parse.initialize(this, "8igWP6UKlYeVz0ROQPPaGJygz1AqMH3LcDZXWMNv", "qj077hg3oAFZbpmCeiomTTxEZxuWrNUFDZPR8alT");
         ParseInstallation.getCurrentInstallation().saveInBackground();
     }
