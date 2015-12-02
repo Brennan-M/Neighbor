@@ -21,6 +21,8 @@ import com.parse.ParseUser;
 
 public class ItemsRentedActivity extends AppCompatActivity {
 
+    private NeighborUser neighbor = NeighborUser.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public class ItemsRentedActivity extends AppCompatActivity {
                     public ParseQuery<RentalItem> create() {
 
                         ParseQuery<RentalItem> query = RentalItem.getQuery();
-                        query.whereEqualTo("Renter", ParseUser.getCurrentUser());
+                        query.whereEqualTo("Renter", neighbor.getParseUser());
                         query.orderByDescending("updatedAt");
                         return query;
                     }

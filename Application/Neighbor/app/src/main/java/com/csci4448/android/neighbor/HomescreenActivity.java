@@ -26,7 +26,7 @@ import com.parse.ParseUser;
 public class HomescreenActivity extends AppCompatActivity {
 
     private EditText searchQuery;
-    ParseUser currentUser;
+    private NeighborUser neighbor = NeighborUser.getInstance();
     private byte[] profilePicture;
     ImageView userProfilePic;
     private TextView fullName;
@@ -36,12 +36,11 @@ public class HomescreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homescreen);
 
-        currentUser = ParseUser.getCurrentUser();
         fullName = (TextView) findViewById(R.id.userName);
         userProfilePic = (ImageView) findViewById(R.id.userProfilePicture);
 
-        fullName.setText(currentUser.getString("memberName"), TextView.BufferType.EDITABLE);
-        ParseFile profilePictureParseFile = currentUser.getParseFile("pictureFile");
+        fullName.setText(neighbor.getParseUser().getString("memberName"), TextView.BufferType.EDITABLE);
+        ParseFile profilePictureParseFile = neighbor.getParseUser().getParseFile("pictureFile");
 
         if (profilePictureParseFile != null) {
             try {
@@ -102,7 +101,7 @@ public class HomescreenActivity extends AppCompatActivity {
                     public ParseQuery<RentalNotification> create() {
 
                         ParseQuery<RentalNotification> query = RentalNotification.getQuery();
-                        query.whereEqualTo("To_", currentUser);
+                        query.whereEqualTo("To_", neighbor.getParseUser());
                         return query;
                     }
                 };

@@ -26,6 +26,8 @@ import com.parse.SaveCallback;
 public class SearchActivity extends AppCompatActivity {
 
 
+    private NeighborUser neighbor = NeighborUser.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,7 +56,7 @@ public class SearchActivity extends AppCompatActivity {
                     ParseQuery<RentalItem> query = RentalItem.getQuery();
                     query.whereEqualTo("Renter", null);
                     query.whereContains("itemName", queryString);
-                    query.whereNotEqualTo("Owner", ParseUser.getCurrentUser());
+                    query.whereNotEqualTo("Owner", neighbor.getParseUser());
                     query.include("Owner");
                     query.orderByDescending("createdAt");
                     return query;
@@ -80,17 +82,16 @@ public class SearchActivity extends AppCompatActivity {
                 rentItemButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
 
-                        final ParseUser currentUser = ParseUser.getCurrentUser();
 
                         RentalNotification newNotification = new RentalNotification();
-                        post.setRenter(currentUser);
-                        ParseRelation itemsRented = currentUser.getRelation("ItemsRented");
+                        post.setRenter(neighbor.getParseUser());
+                        ParseRelation itemsRented = neighbor.getParseUser().getRelation("ItemsRented");
                         itemsRented.add(post);
 
                         post.saveInBackground(new SaveCallback() {
                             public void done(ParseException e) {
                                 if (e == null) {
-                                    currentUser.saveInBackground();
+                                    neighbor.getParseUser().saveInBackground();
                                     Intent intent = new Intent(SearchActivity.this, HomescreenActivity.class);
                                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                     startActivity(intent);
@@ -101,7 +102,7 @@ public class SearchActivity extends AppCompatActivity {
                         });
 
                         newNotification.setItem(post);
-                        newNotification.setFrom(currentUser);
+                        newNotification.setFrom(neighbor.getParseUser());
                         newNotification.setTo(post.getOwner());
                         newNotification.submitRentalNotification();
                     }

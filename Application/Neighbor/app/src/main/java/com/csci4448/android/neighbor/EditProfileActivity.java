@@ -33,7 +33,7 @@ public class EditProfileActivity extends AppCompatActivity {
     private EditText fullName;
     private EditText location;
     private EditText userBio;
-    private ParseUser currentUser;
+    private NeighborUser neighbor = NeighborUser.getInstance();
 
 
     @Override
@@ -41,18 +41,17 @@ public class EditProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        currentUser = ParseUser.getCurrentUser();
 
         fullName = (EditText) findViewById(R.id.fullname_edittext);
         location = (EditText) findViewById(R.id.location_edittext);
         userBio = (EditText) findViewById(R.id.user_bio_edittext);
         userProfilePic = (ImageView) findViewById(R.id.profileImage);
 
-        fullName.setText(currentUser.getString("memberName"), TextView.BufferType.EDITABLE);
-        location.setText(currentUser.getString("location"), TextView.BufferType.EDITABLE);
-        userBio.setText(currentUser.getString("userBio"), TextView.BufferType.EDITABLE);
+        fullName.setText(neighbor.getParseUser().getString("memberName"), TextView.BufferType.EDITABLE);
+        location.setText(neighbor.getParseUser().getString("location"), TextView.BufferType.EDITABLE);
+        userBio.setText(neighbor.getParseUser().getString("userBio"), TextView.BufferType.EDITABLE);
 
-        ParseFile profilePictureParseFile = currentUser.getParseFile("pictureFile");
+        ParseFile profilePictureParseFile = neighbor.getParseUser().getParseFile("pictureFile");
 
         if (profilePictureParseFile != null) {
             try {
@@ -115,18 +114,18 @@ public class EditProfileActivity extends AppCompatActivity {
         String userFullname = fullName.getText().toString().trim();
         String userBioInfo = userBio.getText().toString().trim();
 
-        currentUser.put("location", userLocation);
-        currentUser.put("userBio", userBioInfo);
-        currentUser.put("memberName", userFullname);
+        neighbor.getParseUser().put("location", userLocation);
+        neighbor.getParseUser().put("userBio", userBioInfo);
+        neighbor.getParseUser().put("memberName", userFullname);
 
         ParseFile profilePicParseFile = new ParseFile("profilePic.jpg", profilePicture);
-        currentUser.put("pictureFile", profilePicParseFile);
+        neighbor.getParseUser().put("pictureFile", profilePicParseFile);
 
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("Updating profile...");
         dialog.show();
 
-        currentUser.saveInBackground(new SaveCallback() {
+        neighbor.getParseUser().saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {

@@ -38,6 +38,8 @@ public class PostItemActivity extends AppCompatActivity {
     private byte[] itemData;
     private ImageView itemPicture;
 
+    private NeighborUser neighbor = NeighborUser.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -105,7 +107,6 @@ public class PostItemActivity extends AppCompatActivity {
 
     protected void postItemToNeighbor() {
 
-        final ParseUser currentUser = ParseUser.getCurrentUser();
         String postName = itemName.getText().toString().trim();
         String postLocation = itemLocation.getText().toString().trim();
         String postDescription = itemDescription.getText().toString().trim();
@@ -154,11 +155,11 @@ public class PostItemActivity extends AppCompatActivity {
             valid_post = false;
         }
 
-        if (currentUser == null) {
+        if (neighbor.getParseUser() == null) {
             valid_post = false;
         }
-        newPost.setOwner(currentUser);
-        ParseRelation itemsOwned = currentUser.getRelation("ItemsOwned");
+        newPost.setOwner(neighbor.getParseUser());
+        ParseRelation itemsOwned = neighbor.getParseUser().getRelation("ItemsOwned");
 
 
         if (valid_post == true) {
@@ -167,7 +168,7 @@ public class PostItemActivity extends AppCompatActivity {
             dialog.show();
             newPost.submitRentalItem();
             itemsOwned.add(newPost);
-            currentUser.saveInBackground();
+            neighbor.getParseUser().saveInBackground();
             dialog.dismiss();
             Intent intent = new Intent(this, HomescreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
