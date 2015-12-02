@@ -77,14 +77,15 @@ public class ItemsRentedActivity extends AppCompatActivity {
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
                 final ParseUser owner = post.getOwner();
-                String name = "";
-                try {
-                    name = owner.fetchIfNeeded().getString("memberName");
-                } catch (ParseException e) {
-                    Log.v("ERROR: ", e.toString());
-                }
-                ownerNameView.setText(" " + name);
                 if (owner != null) {
+                    String name = "";
+                    try {
+                        name = owner.fetchIfNeeded().getString("memberName");
+                    } catch (ParseException e) {
+                        Log.v("ERROR: ", e.toString());
+                    }
+                    ownerNameView.setText(" " + name);
+
                     if (!name.equals("")) {
                         ownerNameView.setOnClickListener(new View.OnClickListener() {
                             public void onClick(View v) {

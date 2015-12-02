@@ -102,7 +102,15 @@ public class ItemsOwnedActivity extends AppCompatActivity {
                             }
                         });
                     }
+                } else {
+                    renterNameView.setText(" Item Not Rented.");
+                    renterNameView.setOnClickListener(new View.OnClickListener() {
+                        public void onClick(View v) {
+                            // Nothing
+                        }
+                    });
                 }
+
                 return view;
             }
         };

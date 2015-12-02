@@ -129,28 +129,30 @@ public class SearchActivity extends AppCompatActivity {
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
                 final ParseUser owner = post.getOwner();
-                String name = "";
-                try {
-                    name = owner.fetchIfNeeded().getString("memberName");
-                } catch (ParseException e) {
-                    Log.v("ERROR: ", e.toString());
-                }
-                ownerNameView.setText(" " + name);
+                if (owner != null) {
+                    String name = "";
+                    try {
+                        name = owner.fetchIfNeeded().getString("memberName");
+                    } catch (ParseException e) {
+                        Log.v("ERROR: ", e.toString());
+                    }
+                    ownerNameView.setText(" " + name);
 
-                if (!name.equals("")) {
-                    ownerNameView.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Intent intent = new Intent(SearchActivity.this, UserProfileViewActivity.class);
-                            String userID = "";
-                            try {
-                                userID = owner.fetchIfNeeded().getObjectId();
-                            } catch (ParseException e) {
-                                Log.v("ERROR: ", e.toString());
+                    if (!name.equals("")) {
+                        ownerNameView.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Intent intent = new Intent(SearchActivity.this, UserProfileViewActivity.class);
+                                String userID = "";
+                                try {
+                                    userID = owner.fetchIfNeeded().getObjectId();
+                                } catch (ParseException e) {
+                                    Log.v("ERROR: ", e.toString());
+                                }
+                                intent.putExtra("userID", userID);
+                                startActivity(intent);
                             }
-                            intent.putExtra("userID", userID);
-                            startActivity(intent);
-                        }
-                    });
+                        });
+                    }
                 }
                 return view;
             }
