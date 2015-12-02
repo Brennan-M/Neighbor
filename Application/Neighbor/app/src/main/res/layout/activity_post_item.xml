@@ -15,7 +15,8 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:hint="Item Name..."/>
+        android:hint="Item Name..."
+        android:fontFamily="sans-serif" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -27,16 +28,20 @@
         android:layout_alignParentStart="true"
         android:layout_marginTop="86dp"
         android:layout_alignRight="@+id/item_cost_edittext"
-        android:layout_alignEnd="@+id/item_cost_edittext" />
+        android:layout_alignEnd="@+id/item_cost_edittext"
+        android:fontFamily="sans-serif" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Post Item To Neighbor"
         android:id="@+id/post_item_button"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bgPurple"
+        android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+        android:fontFamily="sans-serif" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -47,7 +52,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/item_description_edittext"
-        android:layout_alignEnd="@+id/item_description_edittext" />
+        android:layout_alignEnd="@+id/item_description_edittext"
+        android:fontFamily="sans-serif" />
 
     <Button
         android:layout_width="wrap_content"
@@ -56,7 +62,10 @@
         android:id="@+id/upload_photo_button"
         android:layout_below="@+id/item_location_edittext"
         android:layout_alignLeft="@+id/post_item_button"
-        android:layout_alignStart="@+id/post_item_button" />
+        android:layout_alignStart="@+id/post_item_button"
+        android:background="@color/bgPurple"
+        android:textColor="@color/white"
+        android:fontFamily="sans-serif" />
 
     <ImageView
         android:layout_width="wrap_content"
@@ -81,7 +90,8 @@
         android:layout_alignParentStart="true"
         android:hint="Cost per time selected..."
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:fontFamily="sans-serif" />
 
     <Spinner
         android:layout_width="wrap_content"
