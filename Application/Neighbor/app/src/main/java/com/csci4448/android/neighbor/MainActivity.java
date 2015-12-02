@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import com.parse.ParseUser;
+
 /**
  * This is the main activity which runs upon the app starting. If the user is logged in,
  * they will be directed to the HomescreenActivity. Otherwise they will be directed
@@ -20,9 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        NeighborUser neighbor = NeighborUser.getInstance();
-
-        if (neighbor.getParseUser() != null) {
+        if (ParseUser.getCurrentUser() != null) {
+            NeighborUser neighbor = NeighborUser.getInstance();
             Intent intent = new Intent(this, HomescreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

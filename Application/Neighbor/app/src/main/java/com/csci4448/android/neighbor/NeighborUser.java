@@ -18,8 +18,8 @@ public class NeighborUser {
     public static NeighborUser getInstance() {
         if (currentUser == null) {
             currentUser = new NeighborUser();
-            pUser = ParseUser.getCurrentUser();
         }
+        pUser = ParseUser.getCurrentUser();
         return currentUser;
     }
 

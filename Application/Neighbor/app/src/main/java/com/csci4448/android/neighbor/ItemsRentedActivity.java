@@ -54,7 +54,7 @@ public class ItemsRentedActivity extends AppCompatActivity {
                 TextView costView = (TextView) view.findViewById(R.id.itemCost);
                 TextView locationView = (TextView) view.findViewById(R.id.itemLocation);
                 TextView descriptionView = (TextView) view.findViewById(R.id.itemDescription);
-                TextView renterNameView = (TextView) view.findViewById(R.id.ownerTextView);
+                TextView ownerNameView = (TextView) view.findViewById(R.id.ownerTextView);
                 ParseImageView itemImage = (ParseImageView) view.findViewById(R.id.userProfilePicture);
 
                 ParseFile image = post.getPhoto();
@@ -76,28 +76,30 @@ public class ItemsRentedActivity extends AppCompatActivity {
                 costView.setText(" $" + Double.toString(post.getCost()) + " per " + post.getPerTime());
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
-                final ParseUser renter = post.getRenter();
+                final ParseUser owner = post.getOwner();
                 String name = "";
                 try {
-                    name = renter.fetchIfNeeded().getString("memberName");
+                    name = owner.fetchIfNeeded().getString("memberName");
                 } catch (ParseException e) {
                     Log.v("ERROR: ", e.toString());
                 }
-                renterNameView.setText(" " + name);
-                if (!name.equals("")) {
-                    renterNameView.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Intent intent = new Intent(ItemsRentedActivity.this, UserProfileViewActivity.class);
-                            String userID = "";
-                            try {
-                                userID = renter.fetchIfNeeded().getObjectId();
-                            } catch (ParseException e) {
-                                Log.v("ERROR: ", e.toString());
+                ownerNameView.setText(" " + name);
+                if (owner != null) {
+                    if (!name.equals("")) {
+                        ownerNameView.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Intent intent = new Intent(ItemsRentedActivity.this, UserProfileViewActivity.class);
+                                String userID = "";
+                                try {
+                                    userID = owner.fetchIfNeeded().getObjectId();
+                                } catch (ParseException e) {
+                                    Log.v("ERROR: ", e.toString());
+                                }
+                                intent.putExtra("userID", userID);
+                                startActivity(intent);
                             }
-                            intent.putExtra("userID", userID);
-                            startActivity(intent);
-                        }
-                    });
+                        });
+                    }
                 }
                 return view;
             }

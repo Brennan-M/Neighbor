@@ -21,7 +21,7 @@ import com.parse.ParseUser;
 
 public class ItemsOwnedActivity extends AppCompatActivity {
 
-    private NeighborUser neighbor = NeighborUser.getInstance();
+    NeighborUser neighbor = NeighborUser.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,27 +79,29 @@ public class ItemsOwnedActivity extends AppCompatActivity {
                 locationView.setText(" " + post.getLocation());
                 descriptionView.setText(post.getDescription());
                 final ParseUser renter = post.getRenter();
-                String name = "";
-                try {
-                    name = renter.fetchIfNeeded().getString("memberName");
-                } catch (ParseException e) {
-                    Log.v("ERROR: ", e.toString());
-                }
-                renterNameView.setText(" " + name);
-                if (!name.equals("")) {
-                    renterNameView.setOnClickListener(new View.OnClickListener() {
-                        public void onClick(View v) {
-                            Intent intent = new Intent(ItemsOwnedActivity.this, UserProfileViewActivity.class);
-                            String userID = "";
-                            try {
-                                userID = renter.fetchIfNeeded().getObjectId();
-                            } catch (ParseException e) {
-                                Log.v("ERROR: ", e.toString());
+                if (renter != null) {
+                    String name = "";
+                    try {
+                        name = renter.fetchIfNeeded().getString("memberName");
+                    } catch (ParseException e) {
+                        Log.v("ERROR: ", e.toString());
+                    }
+                    renterNameView.setText(" " + name);
+                    if (!name.equals("")) {
+                        renterNameView.setOnClickListener(new View.OnClickListener() {
+                            public void onClick(View v) {
+                                Intent intent = new Intent(ItemsOwnedActivity.this, UserProfileViewActivity.class);
+                                String userID = "";
+                                try {
+                                    userID = renter.fetchIfNeeded().getObjectId();
+                                } catch (ParseException e) {
+                                    Log.v("ERROR: ", e.toString());
+                                }
+                                intent.putExtra("userID", userID);
+                                startActivity(intent);
                             }
-                            intent.putExtra("userID", userID);
-                            startActivity(intent);
-                        }
-                    });
+                        });
+                    }
                 }
                 return view;
             }

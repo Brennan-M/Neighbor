@@ -30,7 +30,6 @@ public class PostItemActivity extends AppCompatActivity {
 
     private EditText itemName;
     private EditText itemCost;
-    private String perTime;
     private EditText itemDescription;
     private EditText itemLocation;
     private Spinner costPerTimeSpinner;
