@@ -2,7 +2,6 @@ package com.csci4448.android.neighbor;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import com.parse.ParseException;
@@ -13,7 +12,7 @@ import com.parse.SaveCallback;
 /**
  * Created by Brennan on 12/1/15.
  */
-public class NeighborUser extends AppCompatActivity {
+public class NeighborUser {
 
     private static NeighborUser currentUser = null;
     private static ParseUser pUser;
