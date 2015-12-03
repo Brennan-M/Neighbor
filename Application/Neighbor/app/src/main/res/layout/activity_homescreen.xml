@@ -89,12 +89,13 @@
         android:text="Rented"
         android:id="@+id/viewRentingItemsButton"
         android:textColor="@color/white"
-        android:background="@color/bgPurple"
         android:fontFamily="sans-serif"
         android:layout_below="@+id/viewItemsOwnedButton"
         android:layout_alignRight="@+id/viewItemsOwnedButton"
         android:layout_alignEnd="@+id/viewItemsOwnedButton"
-        android:layout_marginTop="26dp" />
+        android:layout_marginTop="26dp"
+        android:onClick="buttonOnClick"
+        android:background="@color/bgPurple" />
 
     <ListView
         android:id="@+id/item_notification_list"
