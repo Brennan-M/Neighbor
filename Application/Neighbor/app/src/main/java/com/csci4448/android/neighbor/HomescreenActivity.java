@@ -75,7 +75,7 @@ public class HomescreenActivity extends AppCompatActivity {
 
         searchQuery = (EditText) findViewById(R.id.search_item_edittext);
 
-        Button searchQueryButton = (Button) findViewById(R.id.search_button);
+        android.widget.ImageButton searchQueryButton = (android.widget.ImageButton) findViewById(R.id.imageButton);
         searchQueryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String searchingFor = searchQuery.getText().toString().trim();
