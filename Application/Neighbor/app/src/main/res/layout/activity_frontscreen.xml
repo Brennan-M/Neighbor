@@ -18,7 +18,7 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
     android:layout_centerHorizontal="true"
     android:textColor="@color/bgPurple"
     android:textSize="80dp"
-    android:fontFamily="sans-serif-thin"
+    android:fontFamily="sans-serif"
     />
 
 

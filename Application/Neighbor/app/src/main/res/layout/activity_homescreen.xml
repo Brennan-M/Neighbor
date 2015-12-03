@@ -35,11 +35,9 @@
         android:background="@color/bgPurple"
         android:textColor="@color/white"
         android:fontFamily="sans-serif"
-        android:layout_below="@+id/viewRentingItemsButton"
-        android:layout_alignLeft="@+id/viewRentingItemsButton"
-        android:layout_alignStart="@+id/viewRentingItemsButton"
-        android:layout_alignRight="@+id/search_button"
-        android:layout_alignEnd="@+id/search_button" />
+        android:layout_centerVertical="true"
+        android:layout_alignRight="@+id/item_notification_list"
+        android:layout_alignEnd="@+id/item_notification_list" />
 
     <Button
         android:layout_width="wrap_content"
@@ -82,7 +80,6 @@
         android:background="@color/bgPurple"
         android:fontFamily="sans-serif"
         android:layout_alignTop="@+id/userProfilePicture"
-        android:layout_toRightOf="@+id/textView4"
         android:layout_alignRight="@+id/item_notification_list"
         android:layout_alignEnd="@+id/item_notification_list" />
 
@@ -95,10 +92,9 @@
         android:background="@color/bgPurple"
         android:fontFamily="sans-serif"
         android:layout_below="@+id/viewItemsOwnedButton"
-        android:layout_alignLeft="@+id/viewItemsOwnedButton"
-        android:layout_alignStart="@+id/viewItemsOwnedButton"
         android:layout_alignRight="@+id/viewItemsOwnedButton"
-        android:layout_alignEnd="@+id/viewItemsOwnedButton" />
+        android:layout_alignEnd="@+id/viewItemsOwnedButton"
+        android:layout_marginTop="26dp" />
 
     <ListView
         android:id="@+id/item_notification_list"
