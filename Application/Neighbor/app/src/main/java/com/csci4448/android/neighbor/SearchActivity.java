@@ -19,9 +19,7 @@ import com.parse.ParseFile;
 import com.parse.ParseImageView;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 
 public class SearchActivity extends AppCompatActivity {
 
@@ -81,30 +79,7 @@ public class SearchActivity extends AppCompatActivity {
 
                 rentItemButton.setOnClickListener(new View.OnClickListener() {
                     public void onClick(View v) {
-
-
-                        RentalNotification newNotification = new RentalNotification();
-                        post.setRenter(neighbor.getParseUser());
-                        ParseRelation itemsRented = neighbor.getParseUser().getRelation("ItemsRented");
-                        itemsRented.add(post);
-
-                        post.saveInBackground(new SaveCallback() {
-                            public void done(ParseException e) {
-                                if (e == null) {
-                                    neighbor.getParseUser().saveInBackground();
-                                    Intent intent = new Intent(SearchActivity.this, HomescreenActivity.class);
-                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                } else {
-                                    Toast.makeText(SearchActivity.this, "Could not rent this item, error occured..", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        });
-
-                        newNotification.setItem(post);
-                        newNotification.setFrom(neighbor.getParseUser());
-                        newNotification.setTo(post.getOwner());
-                        newNotification.submitRentalNotification();
+                        neighbor.rentItem(SearchActivity.this, post);
                     }
                 });
 

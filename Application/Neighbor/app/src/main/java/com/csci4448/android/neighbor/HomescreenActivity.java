@@ -52,27 +52,24 @@ public class HomescreenActivity extends AppCompatActivity {
             }
         }
 
-        Button itemsOwnedButton = (Button) findViewById(R.id.viewItemsOwnedButton);
+        final Button itemsOwnedButton = (Button) findViewById(R.id.viewItemsOwnedButton);
         itemsOwnedButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(HomescreenActivity.this, ItemsOwnedActivity.class);
-                startActivity(intent);
+                neighbor.viewItemsOwned(HomescreenActivity.this);
             }
         });
 
         Button itemsRentedButton = (Button) findViewById(R.id.viewRentingItemsButton);
         itemsRentedButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(HomescreenActivity.this, ItemsRentedActivity.class);
-                startActivity(intent);
+                neighbor.viewItemsRented(HomescreenActivity.this);
             }
         });
 
         Button postItemButton = (Button) findViewById(R.id.post_item);
         postItemButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                Intent intent = new Intent(HomescreenActivity.this, PostItemActivity.class);
-                startActivity(intent);
+                neighbor.postItem(HomescreenActivity.this);
             }
         });
 
@@ -86,9 +83,7 @@ public class HomescreenActivity extends AppCompatActivity {
                 if (searchingFor.matches("")) {
                     Toast.makeText(HomescreenActivity.this, "Please specify an item to search for...", Toast.LENGTH_LONG).show();
                 } else {
-                    Intent intent = new Intent(HomescreenActivity.this, SearchActivity.class);
-                    intent.putExtra("Query", searchingFor);
-                    startActivity(intent);
+                    neighbor.searchItems(HomescreenActivity.this, searchingFor);
                 }
             }
         });
@@ -191,8 +186,7 @@ public class HomescreenActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         } else if (id == R.id.edit_profile) {
-            Intent intent = new Intent(this, EditProfileActivity.class);
-            startActivity(intent);
+            neighbor.editProfile(HomescreenActivity.this);
         }
 
         return super.onOptionsItemSelected(item);
