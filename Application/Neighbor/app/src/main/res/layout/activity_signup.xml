@@ -21,7 +21,8 @@ tools:context="com.csci4448.android.neighbor.SignupActivity">
     android:layout_alignParentTop="true"
     android:layout_alignParentLeft="true"
     android:layout_alignParentStart="true"
-    android:layout_marginTop="52dp" />
+    android:layout_marginTop="52dp"
+    android:fontFamily="sans-serif" />
 
 <EditText
     android:id="@+id/new_email"
@@ -34,7 +35,8 @@ tools:context="com.csci4448.android.neighbor.SignupActivity">
     android:textColor="@color/bgPurple"
     android:layout_below="@+id/new_username"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"
+    android:fontFamily="sans-serif" />
 
 <EditText
     android:id="@+id/new_password"
@@ -48,7 +50,8 @@ tools:context="com.csci4448.android.neighbor.SignupActivity">
     android:layout_marginTop="23dp"
     android:layout_below="@+id/new_email"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"
+    android:fontFamily="sans-serif" />
 
 <EditText
     android:id="@+id/new_password_confirmation"
@@ -61,14 +64,15 @@ tools:context="com.csci4448.android.neighbor.SignupActivity">
     android:textColor="@color/bgPurple"
     android:layout_below="@+id/new_password"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"
+    android:fontFamily="sans-serif" />
 
 <Button
     android:id="@+id/register_new_user"
     android:layout_width="wrap_content"
-    android:fontFamily="sans-serif-thin"
+    android:fontFamily="sans-serif"
     android:textSize="25sp"
-    android:background="@color/bgPurple"
+    android:background="@drawable/button"
     android:textColor="@color/white"
     android:layout_height="wrap_content"
     android:layout_gravity="end"

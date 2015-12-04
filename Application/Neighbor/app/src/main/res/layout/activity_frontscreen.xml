@@ -18,7 +18,7 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
     android:layout_centerHorizontal="true"
     android:textColor="@color/bgPurple"
     android:textSize="80dp"
-    android:fontFamily="sans-serif-thin"
+    android:fontFamily="sans-serif"
     />
 
 
@@ -45,10 +45,10 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
         android:id="@+id/start_signin"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/start_signup"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="sans-serif"
         android:layout_weight="4"
         android:textColor="@color/white"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textSize="25sp"
         android:layout_centerHorizontal="true" />
 
@@ -79,9 +79,9 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
         android:id="@+id/start_signup"
         android:layout_marginTop="10dp"
         android:layout_alignLeft="@+id/start_signin"
-        android:fontFamily="sans-serif-thin"
+        android:fontFamily="sans-serif"
         android:textColor="@color/white"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textSize="25sp"
         android:layout_weight="4"
         android:layout_alignStart="@+id/start_signin" />
