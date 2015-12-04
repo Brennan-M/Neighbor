@@ -37,7 +37,7 @@
         android:text="Post Item To Neighbor"
         android:id="@+id/post_item_button"
         android:layout_alignParentBottom="true"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textColor="@color/white"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
@@ -63,7 +63,7 @@
         android:layout_below="@+id/item_location_edittext"
         android:layout_alignLeft="@+id/post_item_button"
         android:layout_alignStart="@+id/post_item_button"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textColor="@color/white"
         android:fontFamily="sans-serif" />
 

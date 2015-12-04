@@ -48,7 +48,7 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
         android:fontFamily="sans-serif"
         android:layout_weight="4"
         android:textColor="@color/white"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textSize="25sp"
         android:layout_centerHorizontal="true" />
 
@@ -81,7 +81,7 @@ tools:context="com.csci4448.android.neighbor.FrontscreenActivity">
         android:layout_alignLeft="@+id/start_signin"
         android:fontFamily="sans-serif"
         android:textColor="@color/white"
-        android:background="@color/bgPurple"
+        android:background="@drawable/button"
         android:textSize="25sp"
         android:layout_weight="4"
         android:layout_alignStart="@+id/start_signin" />
