@@ -21,10 +21,9 @@
         android:hint="@string/search_item_hint"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/imageButton"
-        android:layout_alignBottom="@+id/search_button"
+        android:layout_toStartOf="@+id/search_button"
         android:fontFamily="sans-serif"
-        android:layout_toLeftOf="@+id/imageButton"
+        android:layout_toLeftOf="@+id/search_button"
         android:layout_alignParentTop="true" />
 
     <Button
@@ -35,9 +34,9 @@
         android:background="@drawable/button"
         android:textColor="@color/white"
         android:fontFamily="sans-serif"
-        android:layout_centerVertical="true"
-        android:layout_alignRight="@+id/item_notification_list"
-        android:layout_alignEnd="@+id/item_notification_list" />
+        android:layout_alignBottom="@+id/userProfilePicture"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -66,10 +65,10 @@
         android:id="@+id/viewItemsOwnedButton"
         android:textColor="@color/white"
         android:fontFamily="sans-serif"
+        android:background="@drawable/button"
         android:layout_alignTop="@+id/userProfilePicture"
-        android:layout_alignRight="@+id/item_notification_list"
-        android:layout_alignEnd="@+id/item_notification_list"
-        android:background="@drawable/button" />
+        android:layout_alignLeft="@+id/post_item"
+        android:layout_alignStart="@+id/post_item" />
 
     <Button
         android:layout_width="wrap_content"
@@ -78,12 +77,12 @@
         android:id="@+id/viewRentingItemsButton"
         android:textColor="@color/white"
         android:fontFamily="sans-serif"
-        android:layout_below="@+id/viewItemsOwnedButton"
-        android:layout_alignRight="@+id/viewItemsOwnedButton"
-        android:layout_alignEnd="@+id/viewItemsOwnedButton"
-        android:layout_marginTop="26dp"
         android:onClick="buttonOnClick"
-        android:background="@drawable/button" />
+        android:background="@drawable/button"
+        android:layout_above="@+id/post_item"
+        android:layout_alignLeft="@+id/post_item"
+        android:layout_alignStart="@+id/post_item"
+        android:layout_marginBottom="22dp" />
 
     <ListView
         android:id="@+id/item_notification_list"
@@ -101,15 +100,15 @@
         android:text="Alerts and Notifications..."
         android:textColor="@color/bgPurple"
         android:id="@+id/textView4"
-        android:layout_below="@+id/userProfilePicture"
+        android:fontFamily="sans-serif"
+        android:layout_below="@+id/post_item"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:fontFamily="sans-serif" />
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton"
+        android:id="@+id/search_button"
         android:src="@drawable/searching"
         android:background="@drawable/button"
         android:layout_alignTop="@+id/search_item_edittext"

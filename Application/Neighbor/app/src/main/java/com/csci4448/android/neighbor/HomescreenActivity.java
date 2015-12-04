@@ -2,7 +2,6 @@ package com.csci4448.android.neighbor;
 
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -76,7 +74,7 @@ public class HomescreenActivity extends AppCompatActivity {
 
         searchQuery = (EditText) findViewById(R.id.search_item_edittext);
 
-        android.widget.ImageButton searchQueryButton = (android.widget.ImageButton) findViewById(R.id.imageButton);
+        android.widget.ImageButton searchQueryButton = (android.widget.ImageButton) findViewById(R.id.search_button);
         searchQueryButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 String searchingFor = searchQuery.getText().toString().trim();
