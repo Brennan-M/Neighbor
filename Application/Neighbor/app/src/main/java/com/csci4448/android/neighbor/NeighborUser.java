@@ -18,7 +18,7 @@ public class NeighborUser {
     private static ParseUser pUser;
 
     protected NeighborUser() {
-        // Exists only to defeat instantiation.
+        // This defeats instantiation.
     }
 
     public static NeighborUser getInstance() {
